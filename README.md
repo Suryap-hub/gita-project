@@ -14,14 +14,14 @@ This project is built using a modern **Next.js 14** App Router frontend combined
 graph TD
     User([👤 User]) <-->|Interacts with UI| Frontend[🌐 Next.js Frontend <br> Port 3000]
     
-    subgraph Frontend Server
+    subgraph "Frontend Server"
         Frontend <-->|Local state persistence| Zustand[(Zustand Store)]
         Frontend <-->|Direct Gemini Calls| NextAPI[⚡ Next.js API Routes]
     end
     
     NextAPI <-->|Generates Chat Responses| GeminiAPI[🤖 Google Gemini API]
 
-    subgraph Backend Server (FastAPI)
+    subgraph "Backend Server (FastAPI)"
         Frontend <-->|API requests| FastAPI[🐍 FastAPI Backend <br> Port 8000]
         FastAPI <-->|RAG Querying| RAGEngine[⚙️ Python RAG Engine]
         FastAPI <-->|User & Sadhana Data| Mongo[(🍃 MongoDB Atlas)]
