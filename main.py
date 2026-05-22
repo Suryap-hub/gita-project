@@ -38,10 +38,13 @@ async def lifespan(app: FastAPI):
     await connect_mongodb()
     logger.info("✅ MongoDB connected")
 
-    # Initialize RAG Engine (loads FAISS index)
+    # Initialize RAG Engine
     rag_engine = RAGEngine()
-    await rag_engine.initialize()
-    logger.info("✅ RAG Engine initialized with FAISS index")
+    try:
+        await rag_engine.initialize()
+        logger.info("✅ RAG Engine initialized")
+    except Exception as e:
+        logger.warning(f"⚠️ RAG Engine failed to initialize: {e}")
 
     # Store in app state
     app.state.rag_engine = rag_engine
